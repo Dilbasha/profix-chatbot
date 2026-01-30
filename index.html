@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Profix AI</title>
+<title>Profix AI Chat</title>
+
+<style>
+body { font-family: Arial; background:#f4f4f4; }
+#chat { width:400px; margin:30px auto; background:white; padding:10px; height:400px; overflow:auto; }
+input { width:80%; padding:10px; }
+button { padding:10px; }
+.user { color:blue; }
+.bot { color:green; }
+</style>
+
 </head>
 
 <body>
 
-<h2>Profix AI Chat</h2>
+<h2 align="center">Profix AI Chatbot</h2>
 
 <div id="chat"></div>
 
-<input id="msg">
+<center>
+<input id="msg" placeholder="Type message...">
 <button onclick="send()">Send</button>
+</center>
 
 <script>
 function send(){
  let msg = document.getElementById("msg").value;
+
+ document.getElementById("chat").innerHTML +=
+ "<p class='user'>You: "+msg+"</p>";
 
  fetch("/chat",{
   method:"POST",
@@ -24,10 +39,11 @@ function send(){
  })
  .then(r=>r.json())
  .then(d=>{
-   document.getElementById("chat").innerHTML +=
-   "<p><b>You:</b> "+msg+"</p>"+
-   "<p><b>Bot:</b> "+d.reply+"</p>";
+  document.getElementById("chat").innerHTML +=
+  "<p class='bot'>Bot: "+d.reply+"</p>";
  });
+
+ document.getElementById("msg").value="";
 }
 </script>
 
