@@ -55,9 +55,11 @@ def detect_service(input_text):
 
 
 # --- ROUTES ---
+from flask import render_template
+
 @app.route("/")
 def home():
-    return "Profix AI Chatbot Running!"
+    return render_template("index.html")
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -73,3 +75,4 @@ def chat():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
