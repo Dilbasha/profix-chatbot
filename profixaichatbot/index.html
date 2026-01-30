@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profix AI</title>
+</head>
+
+<body>
+
+<h2>Profix AI Chat</h2>
+
+<div id="chat"></div>
+
+<input id="msg">
+<button onclick="send()">Send</button>
+
+<script>
+function send(){
+ let msg = document.getElementById("msg").value;
+
+ fetch("/chat",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({message:msg})
+ })
+ .then(r=>r.json())
+ .then(d=>{
+   document.getElementById("chat").innerHTML +=
+   "<p><b>You:</b> "+msg+"</p>"+
+   "<p><b>Bot:</b> "+d.reply+"</p>";
+ });
+}
+</script>
+
+</body>
+</html>
